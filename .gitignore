@@ -1,0 +1,50 @@
+# Gitignore for .NET projects
+
+## Build artifacts
+[Dd]ebug/
+[Rr]elease/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+## Visual Studio files
+*.suo
+*.user
+*.resharper
+*.vspscc
+*.vssscc
+*.bak
+*.vshost.*
+*.opendb
+*.VC.db
+
+## NuGet packages
+packages/
+*.nupkg
+*.snupkg
+*.lock.json
+
+## Rider files
+.idea/
+*.iml
+
+## Azure Functions
+.funcignore
+
+## Node.js
+node_modules/
+
+## Terraform
+.terraform/
+*.tfplan
+*.tfstate
+*.tfstate.backup
+
+## Misc
+*.log
+*.DS_Store
+
+## DevShield specific
+.devshield/cache/
+.env
