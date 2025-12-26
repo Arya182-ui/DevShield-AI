@@ -116,7 +116,7 @@ python app.py
 ## How It Works (Behind the Scenes)
 
 1. **Secret detected** (in IDE, browser, or CLI)
-2. **Sent to backend** **(without sending the original** for risk scoring and policy check
+2. **Sent to backend** **(without sending the original it send just pattern of secret)** for risk scoring and policy check
 3. **User gets feedback** (block, warn, allow—with explanation)
 4. **Event logged** for analytics and audit
 5. **Admins manage** users and policies in the dashboard
