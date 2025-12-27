@@ -1,0 +1,5 @@
+{
+  "block_types": ["Password", "Secret Key", "AWS Secret Access Key"],
+  "warn_types": ["API Key", "Token", "OAuth Token", "Database Connection String"],
+  "enforce_env": true
+}
