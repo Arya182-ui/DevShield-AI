@@ -1,0 +1,96 @@
+<!-- templates/index.html
+     DevShield AI Dashboard UI
+     Shows metrics, charts, and activity feed.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevShield AI Dashboard</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <img src="/static/img/logo.png" alt="DevShield AI" class="logo" style="width:100%;height:60px;object-fit:contain;display:block;">
+    </div>
+    <nav>
+      <ul>
+        <li class="active"><a href="#"><span>📊</span> Dashboard</a></li>
+        <li><a href="#"><span>📄</span> Reports</a></li>
+        <li><a href="#"><span>⚙️</span> Settings</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <button id="mode-toggle" class="sidebar-toggle">🌙 Dark Mode</button>
+      <div class="user-avatar">
+        <img src="/static/img/user.png" alt="User" class="avatar-img">
+        <span class="user-name">Admin</span>
+      </div>
+    </div>
+  </div>
+  <div class="main-content">
+    <header class="main-header">
+      <div class="header-left">
+        <h1>DevShield AI Dashboard</h1>
+      </div>
+      <div class="header-right">
+        <span class="header-date" id="header-date"></span>
+      </div>
+    </header>
+    <main>
+      <div class="dashboard-filters">
+        <label>Date:
+          <input type="date" id="filter-date-start"> to
+          <input type="date" id="filter-date-end">
+        </label>
+        <label>Type:
+          <select id="filter-type">
+            <option value="">All</option>
+            <option value="API Key">API Key</option>
+            <option value="Token">Token</option>
+            <option value="Password">Password</option>
+            <option value="Secret Key">Secret Key</option>
+          </select>
+        </label>
+        <label>Risk:
+          <input type="number" id="filter-risk-min" min="0" max="100" placeholder="Min" style="width:60px;"> -
+          <input type="number" id="filter-risk-max" min="0" max="100" placeholder="Max" style="width:60px;">
+        </label>
+        <button id="filter-apply" class="filter-btn">Apply</button>
+        <button id="filter-reset" class="filter-btn">Reset</button>
+      </div>
+      <div class="metrics-cards">
+        <div class="metric-card metric-blocked">
+          <div class="metric-icon">🚫</div>
+          <div class="metric-info">
+            <div class="metric-label">Total Blocked</div>
+            <div class="metric-value" id="total-blocked">0</div>
+          </div>
+        </div>
+        <div class="metric-card metric-type">
+          <div class="metric-icon">🔑</div>
+          <div class="metric-info">
+            <div class="metric-label">Secret Types</div>
+            <ul class="metric-list" id="type-breakdown"></ul>
+          </div>
+        </div>
+        <div class="metric-card metric-risk">
+          <div class="metric-icon">📈</div>
+          <div class="metric-info">
+            <div class="metric-label">Risk Scores</div>
+            <canvas id="riskChart" width="300" height="180"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="timeline">
+        <h2>Activity Feed</h2>
+        <ul id="activity-feed"></ul>
+      </div>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
