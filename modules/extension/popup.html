@@ -1,0 +1,108 @@
+<!-- popup.html
+     UI for DevShield AI Guard Extension popup.
+     Shows warning, redaction preview, and Allow/Cancel buttons.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevShield AI Guard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6fb;
+      color: #222;
+      min-width: 340px;
+    }
+    #warning {
+      display: none;
+      border: 2px solid #f39c12;
+      background: linear-gradient(120deg, #fffbe6 80%, #ffe0b2 100%);
+      padding: 20px 18px 18px 18px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(243,156,18,0.10);
+      animation: fadeIn 0.5s;
+      margin: 24px 12px 12px 12px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #warning h3 {
+      font-size: 1.25rem;
+      color: #d35400;
+      margin: 0 0 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #warning h3 .icon {
+      font-size: 2rem;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+    #original, #redacted {
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      white-space: pre-wrap;
+      margin: 10px 0;
+      font-size: 1.05rem;
+      background: #f8f8f8;
+      border-radius: 4px;
+      padding: 6px 8px;
+      word-break: break-all;
+    }
+    #redacted {
+      color: #c0392b;
+      font-weight: bold;
+      background: #fff0f0;
+      border: 1px dashed #e57373;
+    }
+    button {
+      margin-right: 10px;
+      padding: 8px 20px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    #allow {
+      background: linear-gradient(90deg, #27ae60 80%, #2ecc71 100%);
+      color: #fff;
+    }
+    #allow:hover {
+      background: linear-gradient(90deg, #219150 80%, #27ae60 100%);
+    }
+    #cancel {
+      background: linear-gradient(90deg, #e74c3c 80%, #ff7675 100%);
+      color: #fff;
+    }
+    #cancel:hover {
+      background: linear-gradient(90deg, #c0392b 80%, #e74c3c 100%);
+    }
+    @media (max-width: 400px) {
+      body { min-width: 220px; }
+      #warning { padding: 10px; }
+      button { padding: 6px 10px; font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="warning">
+    <h3><span class="icon">&#9888;&#65039;</span> Potential Secret Detected!</h3>
+    <div style="margin-bottom:4px;"><b>Original:</b></div>
+    <div id="original"></div>
+    <div style="margin-bottom:4px;"><b>Redacted Preview:</b></div>
+    <div id="redacted"></div>
+    <div style="margin-top:18px;">
+      <button id="allow">Allow (Paste Redacted)</button>
+      <button id="cancel">Cancel</button>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
