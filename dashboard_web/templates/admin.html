@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DevShield Admin</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        h1 { color: #2c3e50; }
+        .nav { margin-bottom: 1em; }
+        .nav a { margin-right: 1em; text-decoration: none; color: #2980b9; }
+        .card { border: 1px solid #ccc; border-radius: 8px; padding: 1em; margin-bottom: 1em; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 0.5em; text-align: left; }
+        th { background: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <h1>DevShield Admin</h1>
+    <div class="nav">
+        <a href="/">Dashboard</a>
+        <a href="/users">Users</a>
+        <a href="/policy">Policy</a>
+    </div>
+    <div id="content"></div>
+    <script>
+        if (window.location.pathname === '/users') {
+            document.getElementById('content').innerHTML = '<h2>Users</h2><table id="users"><thead><tr><th>Username</th><th>Email</th><th>Role</th><th>Action</th></tr></thead><tbody></tbody></table>';
+            fetch('/api/users').then(r => r.json()).then(data => {
+                const tbody = document.querySelector('#users tbody');
+                data.users.forEach(u => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${u.username || ''}</td><td>${u.email || ''}</td><td>${u.role}</td><td><button onclick="removeUser('${u.username}')">Remove</button></td>`;
+                    tbody.appendChild(tr);
+                });
+            });
+            window.removeUser = function(username) {
+                fetch('/api/users/' + username, { method: 'DELETE' }).then(() => location.reload());
+            }
+        } else if (window.location.pathname === '/policy') {
+            document.getElementById('content').innerHTML = '<h2>Policy</h2><form id="policyForm"></form>';
+            fetch('/api/policy').then(r => r.json()).then(data => {
+                const form = document.getElementById('policyForm');
+                const policy = data.policy;
+                form.innerHTML = `<label>Block Types: <input type="text" id="block_types" value="${policy.block_types.join(', ')}"></label><br><label>Warn Types: <input type="text" id="warn_types" value="${policy.warn_types.join(', ')}"></label><br><label>Enforce Env: <input type="checkbox" id="enforce_env" ${policy.enforce_env ? 'checked' : ''}></label><br><button type="submit">Update Policy</button>`;
+                form.onsubmit = function(e) {
+                    e.preventDefault();
+                    fetch('/api/policy', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            block_types: document.getElementById('block_types').value.split(',').map(s => s.trim()),
+                            warn_types: document.getElementById('warn_types').value.split(',').map(s => s.trim()),
+                            enforce_env: document.getElementById('enforce_env').checked
+                        })
+                    }).then(() => alert('Policy updated!'));
+                };
+            });
+        } else {
+            window.location = '/';
+        }
+    </script>
+</body>
+</html>
