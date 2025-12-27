@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "DevShield AI Guard Extension",
+  "version": "1.0.0",
+  "description": "Warns developers if secrets are detected when pasting code into browser-based AI tools.",
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["background.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "options_page": "options.html"
+  ,
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "devshield-ai-guard@example.com",
+      "strict_min_version": "109.0"
+    }
+  }
+}

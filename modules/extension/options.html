@@ -1,0 +1,62 @@
+<!-- options.html
+     Options page for DevShield AI Guard Extension.
+     Allows user to configure secret detection regex rules.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DevShield AI Guard Options</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 24px; background: #f4f6fb; color: #222; }
+    h2 { color: #2d3436; }
+    label { font-weight: 500; }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      font-size: 1rem;
+      margin-top: 8px;
+      margin-bottom: 16px;
+      border-radius: 6px;
+      border: 1px solid #b2bec3;
+      padding: 8px;
+      background: #fff;
+      color: #222;
+    }
+    button {
+      background: #0984e3;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 500;
+      margin-right: 10px;
+    }
+    button:active { background: #74b9ff; }
+    .status { margin-top: 10px; color: #00b894; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <h2>DevShield AI Guard Options</h2>
+  <form id="apikeyForm">
+    <label for="apikey">API Key:</label><br>
+    <input type="text" id="apikey" style="width:80%" placeholder="Paste your DevShield API key here" />
+    <button type="submit">Save API Key</button>
+    <span class="status" id="apikeyStatus"></span>
+  </form>
+  <form id="rulesForm">
+    <label for="patterns">Secret Detection Regex Patterns (one per line):</label><br>
+    <textarea id="patterns" name="patterns"></textarea><br>
+    <div style="margin-bottom:12px;">
+      <input type="checkbox" id="logToDashboard" name="logToDashboard">
+      <label for="logToDashboard">Log detected secrets to dashboard</label>
+    </div>
+    <button type="submit">Save</button>
+    <span class="status" id="status"></span>
+  </form>
+  <script src="options.js"></script>
+</body>
+</html>
