@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DevShield Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        h1 { color: #2c3e50; }
+        .card { border: 1px solid #ccc; border-radius: 8px; padding: 1em; margin-bottom: 1em; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 0.5em; text-align: left; }
+        th { background: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <h1>DevShield Dashboard</h1>
+    <div class="card">
+        <h2>Analytics</h2>
+        <div id="analytics"></div>
+    </div>
+    <div class="card">
+        <h2>Recent Scan History</h2>
+        <table id="history">
+            <thead>
+                <tr><th>Timestamp</th><th>Request</th><th>Response</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script>
+        fetch('/api/analytics').then(r => r.json()).then(data => {
+            document.getElementById('analytics').innerHTML =
+                `<b>Total Events:</b> ${data.total_events}<br>` +
+                Object.entries(data.by_action).map(([k,v]) => `<b>${k}:</b> ${v}`).join(' | ');
+        });
+        fetch('/api/history').then(r => r.json()).then(data => {
+            const tbody = document.querySelector('#history tbody');
+            data.events.forEach(e => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${e.timestamp}</td><td>${e.request}</td><td>${e.response}</td>`;
+                tbody.appendChild(tr);
+            });
+        });
+    </script>
+</body>
+</html>
