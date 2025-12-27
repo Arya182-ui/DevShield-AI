@@ -1,0 +1,36 @@
+{
+  "name": "devshield-secret-guard",
+  "displayName": "DevShield Secret Guard",
+  "description": "Detects secrets in code on paste/save and warns developers in real-time.",
+  "version": "0.0.1",
+  "publisher": "your-name",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "activationEvents": [
+    "onCommand:devshield.scanDocument",
+    "onCommand:devshield.settings",
+    "onLanguage:python",
+    "onLanguage:javascript"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "devshield.scanDocument",
+        "title": "DevShield: Scan Document for Secrets"
+      },
+      {
+        "command": "devshield.settings",
+        "title": "DevShield: Settings"
+      }
+    ]
+  },
+  "categories": [
+    "Other"
+  ],
+  "scripts": {},
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
