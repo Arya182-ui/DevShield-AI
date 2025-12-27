@@ -1,0 +1,7 @@
+# DevShield-AI Backend API User Management
+# This is a simple API key management file. In production, use a database.
+{
+  "users": [
+    {"username": "admin", "api_key": "devshield-demo-key", "role": "admin"}
+  ]
+}
